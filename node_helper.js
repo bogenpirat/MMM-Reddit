@@ -115,7 +115,7 @@ module.exports = NodeHelper.create({
             url += 'r/' + subreddit + '/';
         }
 
-        return url + type + '/.json?raw_json=1&limit=' + count;
+        return url + type + '.json?raw_json=1&limit=' + count;
     },
 
     /**
