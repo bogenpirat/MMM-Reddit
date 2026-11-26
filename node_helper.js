@@ -9,7 +9,7 @@ const NodeHelper = require('node_helper');
 module.exports = NodeHelper.create({
 
     /**
-     * Base url for all requests
+     * Default base url for all requests, used when config.apiBaseUrl is not set
      * @type {String}
      */
     baseUrl: 'https://www.reddit.com/',
@@ -106,7 +106,7 @@ module.exports = NodeHelper.create({
      * @return {String}
      */
     getUrl (config) {
-        let url = this.baseUrl,
+        let url = this.getBaseUrl(config),
             subreddit = this.formatSubreddit(config.subreddit),
             type = config.type,
             count = config.count;
@@ -116,6 +116,18 @@ module.exports = NodeHelper.create({
         }
 
         return url + type + '/.json?raw_json=1&limit=' + count;
+    },
+
+    /**
+     * Get the configured API base url, falling back to the default, always ending in a slash
+     *
+     * @param  {Object} config
+     * @return {String}
+     */
+    getBaseUrl (config) {
+        let url = config.apiBaseUrl || this.baseUrl;
+
+        return url.endsWith('/') ? url : url + '/';
     },
 
     /**

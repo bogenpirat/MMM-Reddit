@@ -21,6 +21,7 @@ Module.register('MMM-Reddit', {
         forceImmediateUpdate: true,
         characterLimit: null,
         titleReplacements: [],
+        apiBaseUrl: null, // Falls back to 'https://www.reddit.com/' when not set
 
         // Toggles
         showHeader: true,
@@ -151,7 +152,8 @@ Module.register('MMM-Reddit', {
             count: this.config.count,
             imageQuality: this.config.imageQuality,
             characterLimit: this.config.characterLimit,
-            titleReplacements: this.config.titleReplacements
+            titleReplacements: this.config.titleReplacements,
+            apiBaseUrl: this.config.apiBaseUrl
         };
 
         if (this.config.showAll) {
