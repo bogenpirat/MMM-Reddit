@@ -96,7 +96,35 @@ module.exports = NodeHelper.create({
             } else {
                 this.sendError('Request status code: ' + response.status);
             }
+        }).catch(error => {
+            this.sendError(this.formatRequestError(url, error));
         });
+    },
+
+    /**
+     * Describe a failed request without exposing request headers (they may hold the API token)
+     *
+     * @param  {String} url
+     * @param  {Error}  error
+     * @return {String}
+     */
+    formatRequestError (url, error) {
+        let response = error.response,
+            message = 'Request to ' + url + ' failed: ';
+
+        if (!response) {
+            return message + error.message;
+        }
+
+        message += 'status ' + response.status;
+
+        if (response.data && response.data.detail) {
+            message += ' (' + response.data.detail + ')';
+        } else if (response.data && response.data.message) {
+            message += ' (' + response.data.message + ')';
+        }
+
+        return message;
     },
 
     /**
