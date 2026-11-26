@@ -62,7 +62,7 @@ module.exports = NodeHelper.create({
             posts = [],
             body;
 
-        axios.get(url).then(response => {
+        axios.get(url, this.getRequestOptions(this.config)).then(response => {
             if (response.status === 200) {
                 body = response.data;
                 if (typeof body.data !== "undefined") {
@@ -128,6 +128,22 @@ module.exports = NodeHelper.create({
         let url = config.apiBaseUrl || this.baseUrl;
 
         return url.endsWith('/') ? url : url + '/';
+    },
+
+    /**
+     * Get request options, adding a bearer token header when config.apiToken is set
+     *
+     * @param  {Object} config
+     * @return {Object}
+     */
+    getRequestOptions (config) {
+        if (!config.apiToken) {
+            return {};
+        }
+
+        return {
+            headers: { Authorization: 'Bearer ' + config.apiToken },
+        };
     },
 
     /**

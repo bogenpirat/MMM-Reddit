@@ -22,6 +22,7 @@ Module.register('MMM-Reddit', {
         characterLimit: null,
         titleReplacements: [],
         apiBaseUrl: null, // Falls back to 'https://www.reddit.com/' when not set
+        apiToken: null, // Sent as 'Authorization: Bearer <token>' when set
 
         // Toggles
         showHeader: true,
@@ -153,7 +154,8 @@ Module.register('MMM-Reddit', {
             imageQuality: this.config.imageQuality,
             characterLimit: this.config.characterLimit,
             titleReplacements: this.config.titleReplacements,
-            apiBaseUrl: this.config.apiBaseUrl
+            apiBaseUrl: this.config.apiBaseUrl,
+            apiToken: this.config.apiToken
         };
 
         if (this.config.showAll) {
